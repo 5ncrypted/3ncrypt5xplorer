@@ -1,0 +1,112 @@
+<!doctype html>
+<title>3ncrypt5xplorer</title>
+<meta name="theme-color" content="#000000">
+<meta name="application-name" content="3ncrypt5xplorer">
+<link rel="icon" href="../5xplorerIcon.png" type="image/png">
+
+<style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    
+    html, body {
+      height: 100%;
+      
+      display: flex;
+      flex-direction: column;
+    }
+    
+      body {
+        height: 100vh;
+        width: 100vw;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      
+      embed {
+        flex-grow: 1;
+        width: 100%;
+        padding: 0px;
+        background-color: #000000;
+      }
+      
+    </style>
+
+<body style="background-color:#000;">
+
+<div style="display: flex;">
+
+<input id="myInput" autocomplete="on" style= "outline: none; font-family: Lucida Console, Courier New, monospace; color: #008000; background: #000; padding: 2px; flex-grow: 1; height: 24;" type="text" placeholder=""></input>
+
+<div style="font-family: Lucida Console, Courier New, monospace; background: #000; padding 2px; float: right;">
+
+<b hidden style="padding: 6px; cursor: pointer; color: #008000; height: 26px;" onclick="openFullscreen();" id="full">#</b>
+
+<b hidden style="padding: 6px; cursor: pointer; color: #008000;" onclick="returnText();" id="go">></b>
+
+</div>
+
+</div>
+   
+<embed id="website" src="//www.metacrawler.com">
+<script type="text/javascript">
+function returnText(){
+    let input = document.getElementById("myInput").value;
+    if (input.includes(".")) {
+    if (input.includes("://")) {
+    document.getElementById('website').setAttribute('src', input)
+    } else { document.getElementById('website').setAttribute('src', "//" + input)
+    }
+} else {
+	document.getElementById('website').setAttribute('src', "https://www.metacrawler.com/serp?q=" + input)
+}
+
+    reload();
+    inputRefresh();
+    setTimeout(reload, 500)
+    setTimeout(inputRefresh, 1000)
+    
+}
+
+var website = document.getElementById("myInput");
+website.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("go").click();
+  }
+});
+
+var website = document.getElementById("myInput");
+website.addEventListener("keyup", function(event) {
+  if (event.keyCode === 18) {
+    event.preventDefault();
+    document.getElementById("full").click();
+  }
+});
+
+var elem = document.getElementById("website");
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+        
+function inputRefresh() {
+            let site = document.getElementById('website').getAttribute('src');
+            document.getElementById("myInput").value = site
+}
+
+function reload() {
+            document.getElementById('website').src += '';
+            inputRefresh();
+        }
+        
+    
+</script>
